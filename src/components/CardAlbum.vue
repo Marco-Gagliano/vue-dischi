@@ -4,12 +4,12 @@
   <div class="album">
 
     <div>
-      <img src="https://upload.wikimedia.org/wikipedia/en/1/1d/Slipknot_Iowa.jpg" alt="">
+      <img :src="albumData.poster" alt="">
     </div>
 
-    <h5>Iowa</h5>
-    <span>Slipknot</span>
-    <span>2001</span>
+    <h5>{{albumData.title}}</h5>
+    <span>{{albumData.author}}</span>
+    <span>{{albumData.year}}</span>
 
   </div>
   
@@ -19,11 +19,14 @@
 <script>
 
 
+
+
 export default {
-  name: 'CardAlbum'
+  name: 'CardAlbum',
 
-  
-
+  props: {
+    albumData: Object
+  } 
 }
 
 </script>
