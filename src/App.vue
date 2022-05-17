@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-  
+
     <HeaderComponent/>
     <MainComponent/>
-    <FooterComponent/>
+    
     
   </div>
 </template>
@@ -12,7 +12,7 @@
 
 import HeaderComponent from './components/HeaderComponent.vue'
 import MainComponent from './components/MainComponent.vue'
-import FooterComponent from './components/FooterComponent.vue'
+
 
 export default {
   name: 'App',
@@ -20,7 +20,6 @@ export default {
     
     HeaderComponent,
     MainComponent,
-    FooterComponent
   }
 }
 
