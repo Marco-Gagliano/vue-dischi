@@ -1,9 +1,12 @@
 <template>
 
   <main>
+
+    <HeaderComponent @search="selectedGenre" />
+  
     <div class="container" v-if="loadingPage">
 
-      <CardAlbum  v-for="(album, index) in dataAlbum"
+      <CardAlbum  v-for="(album, index) in filteredAlbum"
                   :key="`album${index}`"
                   :albumData="album"
       />
@@ -17,7 +20,7 @@
         <div class="bar bar3"></div>
         <div class="bar bar4"></div>
         <div class="bar bar5"></div>
-        <div class="bar bar6"></div>
+        <div class="bar bar6"></div>  
         <div class="bar bar7"></div>
         <div class="bar bar8"></div>
       </div>
@@ -30,18 +33,19 @@
 <script>
 
 import CardAlbum from './CardAlbum.vue';
+import HeaderComponent from './HeaderComponent.vue';
 import axios from 'axios';
 
 export default {
     name: 'MainComponents',
-
-    components: { CardAlbum },
+    components: { CardAlbum, HeaderComponent },
 
     data() {
       return{
         apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music', 
         dataAlbum: [],
-        loadingPage: false
+        loadingPage: false,
+        albumForSearch: ''     
     }
   },
 
@@ -50,7 +54,7 @@ export default {
       axios.get(this.apiUrl)
 
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.dataAlbum = res.data.response;
         this.loadingPage = true;
       })
@@ -59,6 +63,28 @@ export default {
       //   console.log(err);
       // })
 
+    },
+
+    selectedGenre(genreAlbum) {
+      console.log(genreAlbum);
+      this.albumForSearch = genreAlbum
+    }
+  },
+
+  computed: {
+    filteredAlbum() {
+      let arrayFiltered = [];
+      
+      if(this.albumForSearch === 'all'){
+        arrayFiltered = this.dataAlbum;
+      }
+      else {
+        arrayFiltered = this.dataAlbum.filter(album =>{
+          return album.genre.includes(this.albumForSearch)
+        })
+      }
+
+      return arrayFiltered
     }
   },
   
@@ -75,7 +101,6 @@ export default {
 
   main {
     background-color: #1E2D3B;
-    padding-top: 55px;
     height: 100vh;
   }
 
@@ -89,7 +114,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-}
+  }
 
   .bar {
     width: 10px;
@@ -149,6 +174,5 @@ export default {
       background: transparent;
     }
 }
-
 
 </style>

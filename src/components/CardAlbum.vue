@@ -1,6 +1,5 @@
 <template>
 
-  
   <div class="album">
 
     <div>
@@ -13,7 +12,6 @@
 
   </div>
   
-
 </template>
 
 <script>
