@@ -4,7 +4,7 @@
     <div class="container" v-if="loadingPage">
 
       <CardAlbum  v-for="(album, index) in dataAlbum"
-                  :key="index"
+                  :key="`album${index}`"
                   :albumData="album"
       />
     </div>
@@ -38,10 +38,10 @@ export default {
     components: { CardAlbum },
 
     data() {
-    return{
-      apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music', 
-      dataAlbum: [],
-      loadingPage: false
+      return{
+        apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music', 
+        dataAlbum: [],
+        loadingPage: false
     }
   },
 
@@ -50,8 +50,8 @@ export default {
       axios.get(this.apiUrl)
 
       .then(res => {
-         console.log(res.data);
-        this.dataAlbum = res.data;
+        console.log(res.data);
+        this.dataAlbum = res.data.response;
         this.loadingPage = true;
       })
 
@@ -76,6 +76,7 @@ export default {
   main {
     background-color: #1E2D3B;
     padding-top: 55px;
+    height: 100vh;
   }
 
   .container {
